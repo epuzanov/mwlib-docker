@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+import os
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY, TA_RIGHT
 from reportlab.lib.units import cm
 from reportlab.lib import colors
@@ -6,7 +7,8 @@ from reportlab.lib import colors
 from mwlib.rl.pdfstyles import text_style as ts
 
 title_margin_top = 8.5*cm
-title_page_image = ''
+if os.path.isfile('/var/cache/mwlib/TitlePage.png'):
+    title_page_image = '/var/cache/mwlib/TitlePage.png'
 title_page_image_size = (20*cm, 28*cm)
 titlepagefooter = u''
 creation_date_format = '%d %b %Y'
@@ -40,9 +42,9 @@ fonts = [
 def text_style(mode='p', indent_lvl=0, in_table=0, relsize='normal', text_align=None):
     style = ts(mode, indent_lvl, in_table, relsize, text_align)
     if mode == 'booktitle':
-        style.textColor = color.HexColor('0x547392')
+        style.textColor = colors.HexColor('0x547392')
         style.alignment = TA_CENTER
     if mode == 'booksubtitle':
-        style.textColor = color.HexColor('0x547392')
+        style.textColor = colors.HexColor('0x547392')
         style.alignment = TA_CENTER
-
+    return style
